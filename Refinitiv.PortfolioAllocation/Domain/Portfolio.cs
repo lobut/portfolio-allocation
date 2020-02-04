@@ -1,9 +1,6 @@
-﻿using Refinitiv.PortfolioAllocation.Domain.Data;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 
-namespace Refinitiv.PortfolioAllocation.Console.Domain
+namespace Refinitiv.PortfolioAllocation.Domain
 {
     public class Portfolio
     {

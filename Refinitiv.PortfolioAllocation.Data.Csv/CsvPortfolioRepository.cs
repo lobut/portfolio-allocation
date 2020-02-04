@@ -1,6 +1,5 @@
 ﻿using CsvHelper;
-using Refinitiv.PortfolioAllocation.Console.Domain;
-using Refinitiv.PortfolioAllocation.Domain.Data;
+using Refinitiv.PortfolioAllocation.Domain;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
@@ -19,31 +18,33 @@ namespace Refinitiv.PortfolioAllocation.Data.Csv
         
         public IList<Portfolio> GetItems()
         {
-            var records = new List<CsvPortfolioItem>();
             var portfolios = new List<Portfolio>();
+            var portfolioItem = new List<CsvPortfolioItem>();
 
             using (var reader = new StreamReader(_filename))
             using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture))
             {
                 csv.Configuration.HasHeaderRecord = false;
-                records = csv.GetRecords<CsvPortfolioItem>().ToList();
+                portfolioItem = csv.GetRecords<CsvPortfolioItem>().ToList();
             }
 
-            var grouped = records.GroupBy(x => x.Portfolio);
+            var securityByPortfolioName = portfolioItem.GroupBy(x => x.Portfolio);
 
-            foreach(var group in grouped)
+            foreach(var securitiesByPortfolioName in securityByPortfolioName)
             {
-                var portfolio = new Portfolio(group.Key);
+                var portfolio = new Portfolio(securitiesByPortfolioName.Key);
 
-                foreach(var u in group)
+                foreach(var security in securitiesByPortfolioName)
                 {
-                    portfolio.Securities[u.Security] = new Security
+                    portfolio.Securities[security.Security] = new Security
                     {
-                        Price = u.Price,
-                        Name = u.Security,
-                        QuantityHeld = u.QuantityHeld
+                        Price = security.Price,
+                        Name = security.Security,
+                        QuantityHeld = security.QuantityHeld
                     };
                 }
+
+                portfolios.Add(portfolio);
             }
 
             return portfolios;

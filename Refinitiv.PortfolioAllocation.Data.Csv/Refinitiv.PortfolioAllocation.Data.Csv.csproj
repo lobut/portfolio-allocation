@@ -9,7 +9,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Refinitiv.PortfolioAllocation.Domain\Refinitiv.PortfolioAllocation.Domain.csproj" />
+    <ProjectReference Include="..\Refinitiv.PortfolioAllocation\Refinitiv.PortfolioAllocation.csproj" />
   </ItemGroup>
 
 </Project>

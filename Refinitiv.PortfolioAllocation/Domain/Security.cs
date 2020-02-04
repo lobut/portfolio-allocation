@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Refinitiv.PortfolioAllocation.Domain.Data
-{
+﻿namespace Refinitiv.PortfolioAllocation.Domain 
+{ 
     public class Security
     {
         public string Name { get; set; }
