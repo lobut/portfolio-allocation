@@ -12,13 +12,13 @@ var allocationService = new AllocationService(/* IPortfolioRepository */);
 allocationService.Calculate("STOCK", 25);
 ```
 
-Best place to start looking at code is in the `Refinitiv.PortfolioAllocation.Domain.Tests` project as it's the entry point.
+Best place to start looking at code is in the `Refinitiv.PortfolioAllocation.Domain.Tests` project as it's the main entry point used for testing.
 
 ## Technical Choices / Design / Tests
 
 ### Preamble
 
-Here are various thoughts or technical decisions made while writing this.
+Here are various thoughts or technical decisions made while creating this code base.
 
 #### Solution/Project layout
 
@@ -35,7 +35,7 @@ I also chose to use an external CSV library.  I understand I could write a simpl
 
 I chose to have a Portfolio encapsulate Securities (aka parent-child) and put up the extra effort for the repository to establish that for me (otherwise I'd be operating on a row-by-row basis which would have felt clunky for calculations).
 
-I also preferred to have my objects not be anemic if I can help it.  So certain entities would perform calculations on their own.  There is a risk in that the calculation may be duplicated, but I felt it helped clarity.
+I also preferred to have my objects not be anemic if I can help it.  So certain entities would perform calculations on their own.  There is a risk in that the calculation may be duplicated, but I felt it helped for code clarity.
 
 #### Testing
 
@@ -43,13 +43,13 @@ I also preferred to have my objects not be anemic if I can help it.  So certain 
 
 I chose to use the Test Data Builder Pattern for readability for added code complexity when writing.
 
-I foregone writing tests for the Domain object calculations as they were trivial and were testing by the higher-level tests.
+I have foregone writing tests for the Domain object calculations as they were trivial and were testing by the higher-level tests.
 
 `Moq` just a testing framework I was familiar with as well.  It had no specific advantage over others I required.  I did initially write my own test doubles but found the readability waned.
 
 If there were a UI I would have written an end-to-end test.  As there wasn't, the closest I could do would be the `Refinitiv.PortfolioAllocation.Domain.Tests` tests.
 
-`_sut` is a standard I used to use which means system under test.  You can derive the name by the assembly and name of the class._
+`_sut` is a standard I used to use which means system under test.  You can derive the name by the assembly and name of the class.
 
 #### More
 
